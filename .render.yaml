@@ -7,3 +7,10 @@ services:
       python backend/ecommerce/project/manage.py migrate
       python backend/ecommerce/project/manage.py collectstatic --noinput
     startCommand: gunicorn backend.ecommerce.project.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_HOSTS
+        value: "ecommerce-app.onrender.com"
