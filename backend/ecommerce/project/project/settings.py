@@ -195,13 +195,13 @@ EMAIL_BACKEND = 'django.core.mail.backends.EmailBackend'
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-MEDIA_URL='/images/'
 
 STATICFILES_DIRS=[
     BASE_DIR / 'static'
 ]
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+MEDIA_URL='/images/'
 MEDIA_ROOT = BASE_DIR / 'static/images'
 
 # Default primary key field type
@@ -218,6 +218,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000", 
     "https://<your-netlify-site>.netlify.app",
     "https://<your-render-service>.onrender.com",
+    "https://ecommerce-app.onrender.com",
 ]
 DEBUG = os.getenv("DEBUG", "False") == "True"
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".onrender.com"]
