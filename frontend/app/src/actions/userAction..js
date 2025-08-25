@@ -42,7 +42,7 @@ export const signup = (fname, lname, email, password) => async (dispatch) => {
             },
         }
 
-        const { data } = await axios.post("/api/users/register", {
+        const { data } = await axios.post("/api/users/register/", {
             fname: fname,
             lname: lname,
             email: email,

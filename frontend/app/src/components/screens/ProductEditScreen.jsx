@@ -135,7 +135,7 @@ function ProductEditScreen() {
                   </Form.Group>
 
                   <Form.Group controlId='price' className='mt-3'>
-                    <Form.Label>Pice</Form.Label>
+                    <Form.Label>Price</Form.Label>
                     <Form.Control
                       type='text'
                       placeholder='Enter Price'
