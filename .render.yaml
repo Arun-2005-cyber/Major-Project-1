@@ -8,9 +8,9 @@ services:
       $PY -m pip install --upgrade pip
       $PY -m pip install -r requirements.txt
       $PY -m pip install gunicorn
-      $PY backend/"ecommerce"/project/manage.py migrate --noinput
-      $PY backend/"ecommerce"/project/manage.py collectstatic --noinput
-    startCommand: gunicorn project.wsgi:application --chdir backend/"ecommerce"/project --bind 0.0.0.0:$PORT
+      $PY backend/ecommerce/project/manage.py migrate --noinput
+      $PY backend/ecommerce/project/manage.py collectstatic --noinput
+    startCommand: gunicorn project.wsgi:application --chdir backend/ecommerce/project --bind 0.0.0.0:$PORT
     envVars:
       - key: DEBUG
         value: "False"
