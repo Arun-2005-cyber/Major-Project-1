@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-has-content */
 import React, { useState, useEffect } from 'react'
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import { Link, useNavigate, useParams} from 'react-router-dom'
@@ -62,7 +61,7 @@ function OrderScreen() {
                         <ListGroup.Item>
                             <h2>Shipping</h2>
                             <p><strong>Name : </strong>{order.user.name}</p>
-                            <p><strong>Email : </strong><a href={`mailto:Rs{order.user.email}`}></a>{order.user.email}</p>
+                            <p><strong>Email : </strong><a href={`mailto:${order.user.email}`}>{order.user.email}</a></p>
                             <p><strong>Shipping : </strong>
                                 {order.shippingAddress.address},{order.shippingAddress.city}
                                 {' '}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate, useLocation } from 'react-router-dom'
+import { useParams, Link, useNavigate} from 'react-router-dom'
 import { Row, Col, Button, ListGroup, Image, ListGroupItem, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { listProductDetail } from '../../actions/ProductAction';
@@ -17,7 +17,7 @@ function ProductDetailScreen({ params }) {
     const { error, loading, product } = productDetail
 
     const navigate = useNavigate();
-    const location = useLocation();
+    // const location = useLocation();
     const [qty, setQty] = useState(1)
 
 

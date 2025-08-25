@@ -14,8 +14,7 @@ import {
   ORDER_LIST_MY_REQUEST,
   ORDER_LIST_MY_SUCCESS,
   ORDER_LIST_MY_FAIL,
-  // eslint-disable-next-line no-unused-vars
-  ORDER_LIST_MY_RESET
+  
 } from '../constants/OrderConstant';
 
 export const createOrder = (order) => async (dispatch, getState) => {

@@ -9,12 +9,12 @@ import {
     PRODUCT_CREATE_REQUEST,
     PRODUCT_CREATE_SUCCESS,
     PRODUCT_CREATE_FAIL,
-    PRODUCT_CREATE_RESET,
+
 
     PRODUCT_UPDATE_REQUEST,
     PRODUCT_UPDATE_SUCCESS,
     PRODUCT_UPDATE_FAIL,
-    PRODUCT_UPDATE_RESET
+
 } from '../constants/ProductConstant'
 
 export const listProducts = () => async (dispatch) => {
