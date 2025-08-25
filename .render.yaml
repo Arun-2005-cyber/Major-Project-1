@@ -4,9 +4,9 @@ services:
     env: python
     buildCommand: |
       pip install -r requirements.txt
-      python3 backend/ecommerce/project/manage.py migrate
-      python3 backend/ecommerce/project/manage.py collectstatic --noinput
-    startCommand: gunicorn backend.ecommerce.project.wsgi:application --bind 0.0.0.0:$PORT
+      python3 backend/ecommerce/manage.py migrate
+      python3 backend/ecommerce/manage.py collectstatic --noinput
+    startCommand: gunicorn backend.ecommerce.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
       - key: DEBUG
         value: "False"
@@ -14,7 +14,3 @@ services:
         generateValue: true
       - key: ALLOWED_HOSTS
         value: "ecommerce-app.onrender.com"
-      - key: EMAIL_HOST_USER
-        sync: false
-      - key: EMAIL_HOST_PASSWORD
-        sync: false
