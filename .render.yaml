@@ -2,8 +2,11 @@ services:
   - type: web
     name: ecommerce-app
     env: python
-    buildCommand: pip install -r requirements.txt && python3 backend/ecommerce/project/manage.py migrate && python3 backend/ecommerce/project/manage.py collectstatic --noinput
-    startCommand: gunicorn project.wsgi:application --bind 0.0.0.0:$PORT
+    buildCommand: |
+      pip install -r requirements.txt
+      python3 backend/"ecommerce project"/project/manage.py migrate
+      python3 backend/"ecommerce project"/project/manage.py collectstatic --noinput
+    startCommand: gunicorn project.wsgi:application --chdir backend/"ecommerce project"/project --bind 0.0.0.0:$PORT
     envVars:
       - key: DEBUG
         value: "False"
