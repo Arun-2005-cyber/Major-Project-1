@@ -1,20 +1,14 @@
 services:
   - type: web
-    name: ecommerce-app
+    name: ecommerce-django
     env: python
-     buildCommand: |
-      set -e
-      PY=$(command -v python3 || command -v python)
-      $PY -m pip install --upgrade pip
-      $PY -m pip install -r requirements.txt
-      $PY -m pip install gunicorn
-      $PY backend/"ecommerce project"/project/manage.py migrate --noinput
-      $PY backend/"ecommerce project"/project/manage.py collectstatic --noinput
-    startCommand: gunicorn project.wsgi:application --chdir backend/"ecommerce project"/project --bind 0.0.0.0:$PORT
-    envVars:
-      - key: DEBUG
-        value: "False"
-      - key: SECRET_KEY
-        generateValue: true
-      - key: ALLOWED_HOSTS
-        value: "ecommerce-app.onrender.com"
+    plan: free        # or "starter", "standard" etc. depending on your plan
+    region: oregon    # or "frankfurt", "singapore" etc.
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+      python backend/ecommerce_project/project/manage.py migrate --noinput
+      python backend/ecommerce_project/project/manage.py collectstatic --noinput
+    startCommand: |
+      gunicorn project.wsgi:application --chdir backend/ecommerce_project/project --bind 0.0.0.0:$PORT
+    autoDeploy: true
