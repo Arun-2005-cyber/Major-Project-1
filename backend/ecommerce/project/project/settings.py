@@ -4,6 +4,9 @@ import os
 import django
 import dj_database_url
 from django.utils.encoding import force_str
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Fix for force_text removal in Django 4+
 django.utils.encoding.force_text = force_str
@@ -39,6 +42,12 @@ INSTALLED_APPS = [
     "cloudinary", 
     "cloudinary_storage"
 ]
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'di7pfw5m1',
+    'API_KEY': '336555818416535',
+    'API_SECRET': 'YE1tEexrzJahslciwjNggNoog4A'
+}
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
