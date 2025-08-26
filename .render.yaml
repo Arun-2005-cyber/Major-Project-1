@@ -2,17 +2,12 @@ services:
   - type: web
     name: django-backend
     env: python
-    plan: free
-    workingDirectory: backend/ecommerce/project
     buildCommand: |
-      pip install -r ../../requirements.txt
-      python manage.py collectstatic --noinput
-      python manage.py migrate --noinput
-    startCommand:  gunicorn backend.ecommerce.project.project.wsgi:application --preload
+      pip install -r requirements.txt
+      python backend/ecommerce/project/manage.py collectstatic --noinput
+    startCommand: gunicorn project.wsgi:application --chdir backend/ecommerce/project --preload
     envVars:
       - key: PYTHON_VERSION
         value: 3.11
       - key: DJANGO_SETTINGS_MODULE
-        value: backend.ecommerce.project.project.settings
-      - key: WEB_CONCURRENCY
-        value: 4
+        value: project.settings
