@@ -3,14 +3,15 @@ services:
     name: django-backend
     env: python
     plan: free   # change to 'starter' or higher if you need more resources
+    workingDirectory: backend/ecommerce/project
     buildCommand: |
       pip install -r requirements.txt
-      python backend/ecommerce/project/manage.py collectstatic --noinput
-    startCommand: gunicorn backend.ecommerce.project.project.wsgi:application --preload
+      python manage.py collectstatic --noinput
+    startCommand: gunicorn project.wsgi:application --preload
     envVars:
       - key: PYTHON_VERSION
         value: 3.11
       - key: DJANGO_SETTINGS_MODULE
-        value: backend.ecommerce.project.project.settings
+        value: project.settings
       - key: WEB_CONCURRENCY
         value: 4
