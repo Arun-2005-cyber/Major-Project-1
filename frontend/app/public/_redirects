@@ -1,1 +1,5 @@
-/*    /index.html   200
+# Proxy API to Render
+/api/*  https://majorproject1-ecommerce-cart.onrender.com/api/:splat  200
+
+# SPA fallback
+/*      /index.html  200
