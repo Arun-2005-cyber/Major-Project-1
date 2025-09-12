@@ -1,12 +1,11 @@
 services:
+  - services:
   - type: web
-    name: django-backend
+    name: ecommerce
     env: python
-    rootDir: backend/ecommerce   # 👈 very important
-    buildCommand: |
-      pip install -r requirements.txt
-      python manage.py collectstatic --noinput
-    startCommand: gunicorn project.wsgi:application --preload
+    buildCommand: cd backend/ecommerce && python manage.py collectstatic --noinput
+    startCommand: cd backend/ecommerce && gunicorn project.wsgi
+
     envVars:
       - key: SECRET_KEY
         generateValue: true
