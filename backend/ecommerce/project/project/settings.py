@@ -19,7 +19,12 @@ SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-dev-key")  # use env var i
 
 DEBUG = os.getenv("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,.onrender.com").split(",")
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "majorproject1-ecommerce-cart.onrender.com",
+]
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
@@ -40,7 +45,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     "cloudinary", 
-    "cloudinary_storage"
+    "cloudinary_storage",
+    "app"
 ]
 
 
@@ -87,7 +93,7 @@ MIDDLEWARE = [
     
 ]
 
-ROOT_URLCONF = 'project.urls'
+ROOT_URLCONF = 'project.project.urls'
 
 TEMPLATES = [
     {
@@ -104,7 +110,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'project.wsgi.application'
+WSGI_APPLICATION = 'project.project.wsgi.application'
 
 # ✅ Database config
 import dj_database_url
