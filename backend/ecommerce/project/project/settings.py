@@ -88,7 +88,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-ROOT_URLCONF = "project.urls"
+ROOT_URLCONF = "project.project.urls"
 
 TEMPLATES = [
     {
@@ -105,9 +105,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "project.wsgi.application"
-
-ASGI_APPLICATION = "project.asgi.application"
+WSGI_APPLICATION = "project.project.wsgi.application"
+ASGI_APPLICATION = "project.project.asgi.application"
 # Database config
 DATABASES = {
     "default": {

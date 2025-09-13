@@ -1,4 +1,4 @@
-import axios from 'axios';
+import API from "../api/axios";
 import {
     PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_DETAIL_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DETAIL_FAIL,
 
@@ -20,7 +20,7 @@ import {
 export const listProducts = () => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_LIST_REQUEST })
-        const { data } = await axios.get('/api/products/')
+        const { data } = await API.get('/api/products/')
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
@@ -40,7 +40,7 @@ export const listProducts = () => async (dispatch) => {
 export const listProductDetail = (id) => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_DETAIL_REQUEST })
-        const { data } = await axios.get(`/api/product/${id}`)
+        const { data } = await API.get(`/api/product/${id}`)
 
         dispatch({
             type: PRODUCT_DETAIL_SUCCESS,
@@ -73,7 +73,7 @@ export const createProduct = () => async (dispatch, getState) => {
                 Authorization: `Bearer ${userInfo?.token}`,
             },
         };
-        const { data } = await axios.post(
+        const { data } = await API.post(
             `/api/products/create/`, {}, config
         )
         dispatch({
@@ -106,7 +106,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
                 Authorization: `Bearer ${userInfo?.token}`,
             },
         };
-        const { data } = await axios.put(
+        const { data } = await API.put(
             `/api/products/update/${product.id}/`, product, config
         )
 
@@ -141,7 +141,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
             },
             withCredentials: true,
         };
-        const { data } = await axios.delete(
+        const { data } = await API.delete(
             `/api/products/delete/${id}/`, config)
         dispatch({
             type: PRODUCT_DELETE_SUCCESS,
