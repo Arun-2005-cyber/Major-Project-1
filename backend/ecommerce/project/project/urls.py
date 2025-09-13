@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('app.urls')),  # routes to your app
+  path('api/', include('project.app.urls')),  # routes to your app
 ]
 
 if settings.DEBUG:

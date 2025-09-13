@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     "cloudinary", 
     "cloudinary_storage",
-    "app"
+    "project.app"
 ]
 
 
@@ -93,7 +93,7 @@ MIDDLEWARE = [
     
 ]
 
-ROOT_URLCONF = 'project.project.urls'
+ROOT_URLCONF = "project.project.urls"
 
 TEMPLATES = [
     {
@@ -110,7 +110,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'project.project.wsgi.application'
+WSGI_APPLICATION = "project.project.wsgi.application"
 
 # ✅ Database config
 import dj_database_url
