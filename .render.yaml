@@ -3,8 +3,9 @@ services:
   - type: web
     name: ecommerce
     env: python
-    buildCommand:  cd backend/ecommerce && pip install -r requirements.txt && python manage.py collectstatic --noinput
-    startCommand:  gunicorn project.project.wsgi
+    buildCommand: cd backend/ecommerce && pip install -r requirements.txt && python manage.py collectstatic --noinput
+    startCommand: cd backend/ecommerce && gunicorn project.project.wsgi:application
+
     envVars:
       - key: SECRET_KEY
         generateValue: true
