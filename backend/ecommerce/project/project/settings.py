@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     "cloudinary", 
-    "cloudinary_storage"
+    "cloudinary_storage",
+    'app'
 ]
 
 CLOUDINARY_STORAGE = {
@@ -108,13 +109,19 @@ TEMPLATES = [
 WSGI_APPLICATION = 'project.wsgi.application'
 
 # ✅ Database config
+import dj_database_url
+
+# Database
+# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+
 DATABASES = {
-    "default": dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600,
-        ssl_require=False,
-    )
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",   # ✅ Engine explicitly defined
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
 }
+
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -138,13 +145,12 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
 
-# Static & Media
-import os
+
 
 # Static files (CSS, JS, etc.)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Media files (user-uploaded, product images, etc.)
 
