@@ -2,11 +2,7 @@ from pathlib import Path
 from datetime import timedelta
 import os
 import django
-import dj_database_url
 from django.utils.encoding import force_str
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
 from dotenv import load_dotenv
 
 # Fix for force_text removal in Django 4+
@@ -46,8 +42,9 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     "cloudinary", 
     "cloudinary_storage",
-    "project.app"
+    'project.app',  # ✅ must stay like this
 ]
+
 
 
 CLOUDINARY_STORAGE = {
@@ -83,17 +80,15 @@ SIMPLE_JWT = {
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",   # must be just after security
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # must be just after security
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
 ]
-
-ROOT_URLCONF = "project.project.urls"
+ROOT_URLCONF = "project.urls"
 
 TEMPLATES = [
     {
@@ -110,21 +105,16 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "project.project.wsgi.application"
+WSGI_APPLICATION = "project.wsgi.application"
 
-# ✅ Database config
-import dj_database_url
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+ASGI_APPLICATION = "project.asgi.application"
+# Database config
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",   # ✅ Engine explicitly defined
+        "ENGINE": "django.db.backends.sqlite3",  # ✅ Engine explicitly defined
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
 
 
 # Password validation
@@ -150,9 +140,6 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
 
 
-# Media files (user-uploaded, product images, etc.)
-
-
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -166,7 +153,6 @@ CSRF_TRUSTED_ORIGINS = [
     "https://your-netlify-site.netlify.app",
     "https://your-render-service.onrender.com",
 ]
-
 
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
