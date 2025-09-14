@@ -27,7 +27,7 @@ import {
     USER_UPDATE_PROFILE_RESET,
     USER_UPDATE_PROFILE_FAIL
 } from "../constants/userConstant";
-import axios from 'axios';
+import API from "../api/axios";
 
 
 export const signup = (fname, lname, email, password) => async (dispatch) => {
@@ -42,7 +42,7 @@ export const signup = (fname, lname, email, password) => async (dispatch) => {
             },
         }
 
-        const { data } = await axios.post("/api/users/register/", {
+        const { data } = await API.post("/api/users/register/", {
             fname: fname,
             lname: lname,
             email: email,
@@ -76,7 +76,7 @@ export const login = (email, password) => async (dispatch) => {
             },
         }
 
-        const { data } = await axios.post("/api/users/login/", {
+        const { data } = await API.post("/api/users/login/", {
 
             username: email,
             password: password,
@@ -127,7 +127,7 @@ export const listUsers = () => async (dispatch,getState) => {
             }
         }
 
-        const { data } = await axios.get(`/api/users/getallusers/`,config)
+        const { data } = await API.get(`/api/users/getallusers/`,config)
 
         
 
@@ -165,7 +165,7 @@ export const deleteUser = (id) => async (dispatch,getState) => {
             }
         }
 
-        const { data } = await axios.delete(`/api/users/delete/${id}/`,config)
+        const { data } = await API.delete(`/api/users/delete/${id}/`,config)
 
         
 
@@ -203,7 +203,7 @@ export const updateUser = (user) => async (dispatch,getState) => {
             }
         }
 
-        const { data } = await axios.put(`/api/users/update/${user.id}/`,user,config)
+        const { data } = await API.put(`/api/users/update/${user.id}/`,user,config)
 
         
 
@@ -245,7 +245,7 @@ export const getUserDetails = (id) => async (dispatch,getState) => {
             }
         }
 
-        const { data } = await axios.get(`/api/users/${id}/`,config)
+        const { data } = await API.get(`/api/users/${id}/`,config)
 
         
 
@@ -283,7 +283,7 @@ export const updateUserProfile = (user) => async (dispatch,getState) => {
             }
         }
 
-        const { data } = await axios.put(`/api/users/profile/update/`,user,config)
+        const { data } = await API.put(`/api/users/profile/update/`,user,config)
 
         dispatch({
             type: USER_UPDATE_PROFILE_SUCCESS,
