@@ -11,14 +11,15 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
 
-        def get_image(self, obj):
-            try:
-                if obj.image:
-                # Generate a secure Cloudinary URL
-                  return obj.image.build_url(secure=True)
-            except Exception as e:
-             return None
-            return None
+    def get_image(self, obj):
+        request = self.context.get("request")
+        if obj.image:
+            url = str(obj.image.url) if hasattr(obj.image, "url") else str(obj.image)
+            # Make URL absolute (important for API clients)
+            if request is not None:
+                return request.build_absolute_uri(url)
+            return url
+        return None
 
 
  
