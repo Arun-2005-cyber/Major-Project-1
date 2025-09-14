@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Product,Order,OrderItem,Shippingaddress
 from rest_framework_simplejwt.tokens import RefreshToken
-
+from cloudinary.utils import cloudinary_url
 
 class ProductSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
@@ -11,17 +11,14 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
 
-    def get_image(self, obj):
-        try:
-           if obj.image:
-            url = str(obj.image)
-            # Force https for Cloudinary
-            if url.startswith("http://res.cloudinary.com/"):
-                url = url.replace("http://", "https://", 1)
-            return url
-        except:
-         return None
-        return None
+        def get_image(self, obj):
+            try:
+                if obj.image:
+                # Generate a secure Cloudinary URL
+                  return obj.image.build_url(secure=True)
+            except Exception as e:
+             return None
+            return None
 
 
  
