@@ -146,8 +146,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'http://localhost:3000',
     "http://127.0.0.1:3000",
-    "https://your-netlify-site.netlify.app",
-    "https://your-render-service.onrender.com",
+    "https://ecommerce-c.netlify.app",
+    "https://majorproject-1-ecommerce-cart.onrender.com",
 ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
