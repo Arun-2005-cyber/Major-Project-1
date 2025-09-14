@@ -161,16 +161,5 @@ CORS_ALLOW_HEADERS = [
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
-# 🚨 TEMPORARY CODE: auto-create admin user if missing
-from django.contrib.auth.models import User
 
-try:
-    if not User.objects.filter(username="arunprakash").exists():
-        User.objects.create_superuser(
-            username="arunprakash",
-            email="prakashsm940@gmail.com",
-            password="arunprakash#2005"
-        )
-except Exception as e:
-    print("Superuser creation failed:", e)
 
