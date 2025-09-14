@@ -13,15 +13,16 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def get_image(self, obj):
         try:
-         if obj.image:
-            url = obj.image.url
-            # Ensure https
-            if url.startswith("http://"):
+           if obj.image:
+            url = str(obj.image)
+            # Force https for Cloudinary
+            if url.startswith("http://res.cloudinary.com/"):
                 url = url.replace("http://", "https://", 1)
             return url
         except:
-            return None
+         return None
         return None
+
 
  
 class UserSerializer(serializers.ModelSerializer):
