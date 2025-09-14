@@ -21,11 +21,9 @@ ALLOWED_HOSTS = [
     "majorproject1-ecommerce-cart.onrender.com",
 ]
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 
 # Installed apps
 INSTALLED_APPS = [
@@ -161,5 +159,7 @@ CORS_ALLOW_HEADERS = [
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
