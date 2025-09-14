@@ -5,15 +5,19 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = Product
         fields = '__all__'
 
-        def to_representation(self, instance):
-          data = super().to_representation(instance)
-          if instance.image:
-            data['image'] = instance.image.url  # ✅ ensures full Cloudinary URL
-          return data
+    def get_image(self, obj):
+        try:
+            if obj.image:
+                return obj.image.url   # ✅ Cloudinary full URL
+        except:
+            return None
+        return None
 
 class UserSerializer(serializers.ModelSerializer):
     first_name=serializers.SerializerMethodField(read_only=True)
