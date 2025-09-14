@@ -4,6 +4,7 @@ import os
 import django
 from django.utils.encoding import force_str
 from dotenv import load_dotenv
+import cloudinary
 
 # Fix for force_text removal in Django 4+
 django.utils.encoding.force_text = force_str
@@ -46,6 +47,15 @@ CLOUDINARY_STORAGE = {
     'API_KEY': '336555818416535',
     'API_SECRET': 'YE1tEexrzJahslciwjNggNoog4A'
 }
+
+import cloudinary
+
+cloudinary.config( 
+  cloud_name = "di7pfw5m1", 
+  api_key = "336555818416535", 
+  api_secret = "YE1tEexrzJahslciwjNggNoog4A",
+  secure = True   # 🔒 Force HTTPS always
+)
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 

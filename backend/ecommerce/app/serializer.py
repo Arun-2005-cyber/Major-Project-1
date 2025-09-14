@@ -15,11 +15,14 @@ class ProductSerializer(serializers.ModelSerializer):
         request = self.context.get("request")
         if obj.image:
             url = str(obj.image.url) if hasattr(obj.image, "url") else str(obj.image)
-            # Make URL absolute (important for API clients)
+        # 🔒 Force HTTPS to avoid mixed-content issues
+            if url.startswith("http://"):
+               url = url.replace("http://", "https://", 1)
             if request is not None:
                 return request.build_absolute_uri(url)
             return url
         return None
+
 
 
  
