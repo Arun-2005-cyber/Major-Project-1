@@ -9,6 +9,12 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
 
+        def to_representation(self, instance):
+          data = super().to_representation(instance)
+          if instance.image:
+            data['image'] = instance.image.url  # ✅ ensures full Cloudinary URL
+          return data
+
 class UserSerializer(serializers.ModelSerializer):
     first_name=serializers.SerializerMethodField(read_only=True)
     last_name=serializers.SerializerMethodField(read_only=True)

@@ -7,13 +7,7 @@ function ProductScreen({ product }) {
   return (
     <Card style={{ width: '18rem' }} className='my-3 p-3 rounded shadow-lg'>
       <Link to={`/products/${product.id}`}>
-        <Card.Img 
-  src={product.image && product.image.startsWith("http") 
-    ? product.image 
-    : `https://res.cloudinary.com/di7pfw5m1/${product.image}`} 
-  style={{ width: '270px', height: '350px' }} 
-/>
-
+        <Card.Img src={product.image} style={{ width: '270px', height: '350px' }} />
       </Link>
 
       <Card.Body>
