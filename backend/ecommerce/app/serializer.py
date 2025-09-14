@@ -13,12 +13,17 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def get_image(self, obj):
         try:
-            if obj.image:
-                return obj.image.url   # ✅ Cloudinary full URL
+         if obj.image:
+            url = obj.image.url
+            # Ensure https
+            if url.startswith("http://"):
+                url = url.replace("http://", "https://", 1)
+            return url
         except:
             return None
         return None
 
+ 
 class UserSerializer(serializers.ModelSerializer):
     first_name=serializers.SerializerMethodField(read_only=True)
     last_name=serializers.SerializerMethodField(read_only=True)
