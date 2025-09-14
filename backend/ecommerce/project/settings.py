@@ -24,10 +24,8 @@ ALLOWED_HOSTS = [
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 # Installed apps
 INSTALLED_APPS = [
@@ -42,10 +40,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     "cloudinary", 
     "cloudinary_storage",
-    'project.app',  # ✅ must stay like this
+    'app',  # ✅ just 'app'
 ]
-
-
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'di7pfw5m1',
@@ -54,7 +50,6 @@ CLOUDINARY_STORAGE = {
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
 
 # REST Framework + JWT
 REST_FRAMEWORK = {
@@ -88,25 +83,29 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-ROOT_URLCONF = "project.project.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],  # custom templates folder if you need
+        "APP_DIRS": True,  # ✅ required for Django to find admin templates
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = "project.project.wsgi.application"
-ASGI_APPLICATION = "project.project.asgi.application"
+
+# ✅ FIXED: removed the extra "project."
+ROOT_URLCONF = "project.urls"
+WSGI_APPLICATION = "project.wsgi.application"
+ASGI_APPLICATION = "project.asgi.application"
+
 # Database config
 DATABASES = {
     "default": {
@@ -114,7 +113,6 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -138,7 +136,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
 
-
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -152,6 +149,5 @@ CSRF_TRUSTED_ORIGINS = [
     "https://your-netlify-site.netlify.app",
     "https://your-render-service.onrender.com",
 ]
-
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
