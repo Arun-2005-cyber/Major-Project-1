@@ -83,30 +83,42 @@ def registerUser(request):
         return Response(message)
 
 
+from django.conf import settings
+
 @api_view(['POST'])
 def registerUser(request):
-    data=request.data
+    data = request.data
 
     try:
-        user=User.objects.create(first_name=data['fname'],last_name=data['lname'],username=data['email'],email=data['email'],password=make_password(data['password']),is_active=False)
+        user = User.objects.create(
+            first_name=data['fname'],
+            last_name=data['lname'],
+            username=data['email'],
+            email=data['email'],
+            password=make_password(data['password']),
+            is_active=False
+        )
 
-        email_subject="Activate Your Account"
-        message=render_to_string(
-            "activate.html",{
-                'user':user,
-                'domain':'127.0.0.1:8000/',
-                'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-                'token':generate_token.make_token(user)
+        # Generate activation link with dynamic base URL
+        activation_link = f"{settings.BASE_URL}/api/activate/{urlsafe_base64_encode(force_bytes(user.pk))}/{generate_token.make_token(user)}/"
+
+        email_subject = "Activate Your Account"
+        message = render_to_string(
+            "activate.html", {
+                'user': user,
+                'activation_link': activation_link  # Pass the dynamic activation link to the email template
             }
         )
-        # email_message=EmailMessage(email_subject,message,settings.EMAIL_HOST_USER,[data['email']])
-        # email_message.send()
-        message={"details":f"Activate your Account please click the link in gmail for account activation {message}"}
-        return Response(message)
+
+        
+        email_message = EmailMessage(email_subject, message, settings.EMAIL_HOST_USER, [data['email']])
+        email_message.send()
+
+        return Response({"details": f"Activation email sent to {data['email']}. Please check your inbox."})
 
     except Exception as e:
-        message={"details":f"Signup is Failed {e}"}
-        return Response(message)  
+        return Response({"details": f"Signup failed: {str(e)}"})
+
 
 
 

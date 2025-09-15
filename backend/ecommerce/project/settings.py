@@ -136,6 +136,13 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
+# In settings.py
+if DEBUG:
+    FRONTEND_URL = 'http://localhost:3000'  # Local dev environment URL
+else:
+    FRONTEND_URL = 'https://ecommerce-c.netlify.app'  # Production URL
+
+
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.getenv("EMAIL_HOST", "smtpout.secureserver.net")
