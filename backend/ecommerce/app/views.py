@@ -23,7 +23,8 @@ from rest_framework import status  # pyright: ignore[reportMissingImports]
 from django.core.exceptions import ObjectDoesNotExist
 from .tokens import generate_token
 from django.contrib.auth.tokens import default_token_generator 
-from django.utils.encoding import force_str
+from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
+
 
 # Create your views here.
 

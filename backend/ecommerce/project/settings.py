@@ -1,4 +1,4 @@
-from multiprocessing.util import DEBUG
+
 from pathlib import Path
 from datetime import timedelta
 import os
@@ -18,16 +18,11 @@ SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-dev-key")  # use env var i
 # In settings.py
 
 # Set BASE_URL dynamically based on the DEBUG setting
-if DEBUG:
-    BASE_URL = 'http://127.0.0.1:8000'  # Local development URL
-else:
-    BASE_URL = 'https://majorproject1-ecommerce-cart.onrender.com'  # Production URL
+DEBUG = os.getenv("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
-    "majorproject1-ecommerce-cart.onrender.com",
-]
+
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+
 
 
 
