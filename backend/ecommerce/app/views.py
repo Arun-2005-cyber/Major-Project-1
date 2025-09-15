@@ -21,6 +21,10 @@ from django.views.generic import View
 from .utils import TokenGenerator,generate_token
 from rest_framework import status  # pyright: ignore[reportMissingImports]
 from django.core.exceptions import ObjectDoesNotExist
+from .tokens import generate_token
+from django.contrib.auth.tokens import default_token_generator 
+from django.utils.encoding import force_str
+
 # Create your views here.
 
 @api_view(['GET'])
@@ -70,26 +74,10 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 @api_view(['POST'])
 def registerUser(request):
-    data=request.data
-
-    try:
-        user=User.objects.create(first_name=data['fname'],last_name=data['lname'],username=data['email'],email=data['email'],password=make_password(data['password']))
-
-        message={"details":"Signup is Successfull"}
-        return Response(message)
-    
-    except Exception as e:
-        message={"details":f"Signup is Failed {e}"}
-        return Response(message)
-
-
-from django.conf import settings
-
-@api_view(['POST'])
-def registerUser(request):
     data = request.data
 
     try:
+        # Create user but inactive
         user = User.objects.create(
             first_name=data['fname'],
             last_name=data['lname'],
@@ -99,20 +87,25 @@ def registerUser(request):
             is_active=False
         )
 
-        # Generate activation link with dynamic base URL
-        activation_link = f"{settings.BASE_URL}/api/activate/{urlsafe_base64_encode(force_bytes(user.pk))}/{generate_token.make_token(user)}/"
-        print(settings.BASE_URL)
+        # Generate uid and token
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        token = generate_token.make_token(user)
 
+        # Construct activation link
+        activation_link = f"{settings.BACKEND_URL}/api/activate/{uid}/{token}/"
+
+        # Render email template
         email_subject = "Activate Your Account"
         message = render_to_string(
             "activate.html", {
                 'user': user,
-                'activation_link': activation_link  # Pass the dynamic activation link to the email template
+                'activation_link': activation_link
             }
         )
 
-        
+        # Send email
         email_message = EmailMessage(email_subject, message, settings.EMAIL_HOST_USER, [data['email']])
+        email_message.content_subtype = 'html'  # Optional: If you're using HTML template
         email_message.send()
 
         return Response({"details": f"Activation email sent to {data['email']}. Please check your inbox."})
@@ -124,20 +117,19 @@ def registerUser(request):
 
 
 class ActivateAccountView(View):
-    def get(self,request,uidb64,token):
+    def get(self, request, uidb64, token):
         try:
-            uid=force_text(urlsafe_base64_decode(uidb64))
-            user=User.objects.get(pk=uid)
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+        except Exception:
+            user = None
 
-        except Exception as identifier:
-            user=None
-
-        if user is not None and generate_token.check_token(user,token):
-            user.is_active=True
+        if user is not None and default_token_generator.check_token(user, token):
+            user.is_active = True
             user.save()
-            return render(request,"activatesuccess.html")
+            return render(request, "activatesuccess.html")
         else:
-            return render(request,"activatefail.html")    
+            return render(request, "activatefail.html")   
                        
 
 @api_view(['POST'])
