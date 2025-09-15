@@ -76,9 +76,8 @@ class MyTokenObtainPairView(TokenObtainPairView):
 @api_view(['POST'])
 def registerUser(request):
     data = request.data
-
     try:
-        # Create user but inactive
+        # Create inactive user
         user = User.objects.create(
             first_name=data['fname'],
             last_name=data['lname'],
@@ -88,31 +87,33 @@ def registerUser(request):
             is_active=False
         )
 
-        # Generate uid and token
+        # Generate uid + token
         uid = urlsafe_base64_encode(force_bytes(user.pk))
-        token = generate_token.make_token(user)
+        token = default_token_generator.make_token(user)
 
-        # Construct activation link
-        activation_link = f"{settings.BACKEND_URL}/api/activate/{uid}/{token}/"
-
-        # Render email template
-        email_subject = "Activate Your Account"
-        message = render_to_string(
-            "activate.html", {
-                'user': user,
-                'activation_link': activation_link
-            }
-        )
+        # Activation link (⚡ important fix here)
+        activation_link = f"{settings.FRONTEND_URL}/activate/{uid}/{token}/"
 
         # Send email
-        email_message = EmailMessage(email_subject, message, settings.EMAIL_HOST_USER, [data['email']])
-        email_message.content_subtype = 'html'  # Optional: If you're using HTML template
+        email_subject = "Activate Your Account"
+        message = render_to_string("activate.html", {
+            'user': user,
+            'activation_link': activation_link
+        })
+
+        email_message = EmailMessage(
+            email_subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [data['email']]
+        )
+        email_message.content_subtype = 'html'
         email_message.send()
 
         return Response({"details": f"Activation email sent to {data['email']}. Please check your inbox."})
-
     except Exception as e:
         return Response({"details": f"Signup failed: {str(e)}"})
+
 
 
 
