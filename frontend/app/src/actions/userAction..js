@@ -38,7 +38,7 @@ export const signup = (fname, lname, email, password) => async (dispatch) => {
 
         const config = {
             headers: {
-                "Conent-Type": "application/json"
+                "Content-Type": "application/json"
             },
         }
 
