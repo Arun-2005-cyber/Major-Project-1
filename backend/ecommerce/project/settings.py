@@ -149,7 +149,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS / CSRF
 CORS_ALLOWED_ORIGINS = [
-    "https://ecommerce-c.netlify.app",
+    "https://ecommerce-c.netlify.app"         # if no port
 ]
 
 CORS_ALLOW_CREDENTIALS = True
