@@ -1,3 +1,4 @@
+from multiprocessing.util import DEBUG
 from pathlib import Path
 from datetime import timedelta
 import os
@@ -14,7 +15,13 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-dev-key")  # use env var in production
 
-DEBUG = os.getenv("DEBUG", "True") == "True"
+# In settings.py
+
+# Set BASE_URL dynamically based on the DEBUG setting
+if DEBUG:
+    BASE_URL = 'http://127.0.0.1:8000'  # Local development URL
+else:
+    BASE_URL = 'https://majorproject1-ecommerce-cart.onrender.com'  # Production URL
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -137,10 +144,7 @@ USE_I18N = True
 USE_TZ = True
 
 # In settings.py
-if DEBUG:
-    FRONTEND_URL = 'http://localhost:3000'  # Local dev environment URL
-else:
-    FRONTEND_URL = 'https://ecommerce-c.netlify.app'  # Production URL
+ # Local dev environment URL
 
 
 # Email
