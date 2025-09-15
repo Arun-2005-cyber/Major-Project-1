@@ -101,6 +101,7 @@ def registerUser(request):
 
         # Generate activation link with dynamic base URL
         activation_link = f"{settings.BASE_URL}/api/activate/{urlsafe_base64_encode(force_bytes(user.pk))}/{generate_token.make_token(user)}/"
+        print(settings.BASE_URL)
 
         email_subject = "Activate Your Account"
         message = render_to_string(
