@@ -9,7 +9,7 @@ class MainAppConfig(AppConfig):
     def ready(self):
         # Auto-create superuser on deploy
         User = get_user_model()
-        username = "Arun"
+        username = "Arunalan"
         email = "arunprakashsekar2005@gmail.com"
         password = "arun#952005"   # 👉 change this to a strong password
 
