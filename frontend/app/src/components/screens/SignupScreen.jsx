@@ -213,7 +213,7 @@ function SignupScreen() {
                 type="text"
                 placeholder="Enter your Last Name"
                 name="lname"
-                value={FormValues.lame}
+                value={FormValues.lname}
                 onChange={handleChange}
                 isInvalid={!!FormErrors.lname}
                 isValid={FormValues.lname !== "" && !FormErrors.lname}
