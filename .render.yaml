@@ -2,15 +2,12 @@ services:
   - type: web
     name: ecommerce
     env: python
-    buildCommand: pip install -r requirements.txt && cd backend/ecommerce && python manage.py collectstatic --noinput && python manage.py create_default_superuser
-
-    startCommand: cd backend/ecommerce && gunicorn project.project.wsgi:application
-
-
+    buildCommand: pip install -r requirements.txt && cd backend/ecommerce && python manage.py migrate && python manage.py collectstatic --noinput
+    startCommand: cd backend/ecommerce && gunicorn project.wsgi:application
     envVars:
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
         value: False
       - key: ALLOWED_HOSTS
-        value: your-app.onrender.com,localhost,127.0.0.1
+        value: majorproject1-ecommerce-cart.onrender.com,localhost,127.0.0.1
