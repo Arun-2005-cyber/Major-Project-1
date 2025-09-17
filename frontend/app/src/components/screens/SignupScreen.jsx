@@ -104,8 +104,8 @@ function SignupScreen() {
     let errorMessage = null
 
     switch (name) {
-      case "firstname":
-      case "lastname":
+      case "fname":
+      case "lname":
         if (!value) {
           errorMessage = "This field is required..."
         }
@@ -159,8 +159,8 @@ function SignupScreen() {
 
     dispatch(
       signup(
-        FormValues.firstname,
-        FormValues.lastname,
+        FormValues.fname,
+        FormValues.lname,
         FormValues.email,
         FormValues.password
       )
@@ -191,7 +191,7 @@ function SignupScreen() {
           <Form noValidate validated={false} onSubmit={submitHandler}>
             <h1 className="text-center">Signup Here</h1>
 
-            <Form.Group controlId="firstname">
+            <Form.Group controlId="fname">
               <Form.Label>First Name</Form.Label>
               <Form.Control
                 type="text"
@@ -207,7 +207,7 @@ function SignupScreen() {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group controlId="lastname" className="mt-3">
+            <Form.Group controlId="lname" className="mt-3">
               <Form.Label>Last Name</Form.Label>
               <Form.Control
                 type="text"
