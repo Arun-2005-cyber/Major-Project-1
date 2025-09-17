@@ -23,8 +23,8 @@ function SignupScreen() {
   const { error, loading, userinfo } = userSignup
 
   const [FormValues, setFormValues] = useState({
-    firstname: "",
-    lastname: "",
+    fname: "",
+    lname: "",
     email: "",
     password: "",
     confrimpassword: "",
@@ -32,8 +32,8 @@ function SignupScreen() {
   })
 
   const [FormErrors, setFormErrors] = useState({
-    firstname: null,
-    lastname: null,
+    fname: null,
+    lname: null,
     email: null,
     password: null,
     confrimpassword: null,
@@ -89,10 +89,10 @@ function SignupScreen() {
     )
   }
 
-  const clearFrom = () => {
+  const clearForm = () => {
     setFormValues({
-      firstname: "",
-      lastname: "",
+      fname: "",
+      lname: "",
       email: "",
       password: "",
       confrimpassword: "",
@@ -167,7 +167,7 @@ function SignupScreen() {
     )
 
     setSignupSuccess(true)
-    clearFrom()
+    clearForm()
   }
   const [visible, setVisible] = useState(true);
   const handleClose = () => {
@@ -196,14 +196,14 @@ function SignupScreen() {
               <Form.Control
                 type="text"
                 placeholder="Enter your First Name"
-                name="firstname"
-                value={FormValues.firstname}
+                name="fname"
+                value={FormValues.fname}
                 onChange={handleChange}
-                isInvalid={!!FormErrors.firstname}
-                isValid={FormValues.firstname !== "" && !FormErrors.firstname}
+                isInvalid={!!FormErrors.fname}
+                isValid={FormValues.fname !== "" && !FormErrors.fname}
               />
               <Form.Control.Feedback type="invalid">
-                {FormErrors.firstname}
+                {FormErrors.fname}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -212,14 +212,14 @@ function SignupScreen() {
               <Form.Control
                 type="text"
                 placeholder="Enter your Last Name"
-                name="lastname"
-                value={FormValues.lastname}
+                name="lname"
+                value={FormValues.lame}
                 onChange={handleChange}
-                isInvalid={!!FormErrors.lastname}
-                isValid={FormValues.lastname !== "" && !FormErrors.lastname}
+                isInvalid={!!FormErrors.lname}
+                isValid={FormValues.lname !== "" && !FormErrors.lname}
               />
               <Form.Control.Feedback type="invalid">
-                {FormErrors.lastname}
+                {FormErrors.lname}
               </Form.Control.Feedback>
             </Form.Group>
 
