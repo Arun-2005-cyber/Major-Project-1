@@ -79,8 +79,8 @@ def registerUser(request):
     try:
         # Create inactive user
         user = User.objects.create(
-            first_name=data['fname'],
-            last_name=data['lname'],
+            first_name=data['first_name'],
+            last_name=data['last_name'],
             username=data['email'],
             email=data['email'],
             password=make_password(data['password']),
@@ -309,8 +309,8 @@ def updateUserProfile(request):
     user=request.user
     serializer=UserSerializerWithToken(user,many=False)
     data=request.data
-    user.first_name=data['fname']
-    user.last_name=data['lname']
+    user.first_name=data['first_name']
+    user.last_name=data['last_name']
     if data['password']!='':
         user.password=make_password(data['password'])
     user.save()
