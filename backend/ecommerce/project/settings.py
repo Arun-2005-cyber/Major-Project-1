@@ -6,7 +6,7 @@ import django
 from django.utils.encoding import force_str
 from dotenv import load_dotenv
 import cloudinary
-import dj_database_url
+
 
 # Fix for force_text removal in Django 4+
 django.utils.encoding.force_text = force_str
@@ -120,11 +120,14 @@ WSGI_APPLICATION = "project.wsgi.application"
 ASGI_APPLICATION = "project.asgi.application"
 
 # Database config
+# DATABASES configuration for SQLite
 DATABASES = {
-    "default": dj_database_url.config(
-        default=os.getenv("DATABASE_URL")
-    )
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
 }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
