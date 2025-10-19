@@ -101,7 +101,7 @@ export const login = (email, password) => async (dispatch) => {
 
 export const logout = () => (dispatch) => {
 
-    localStorage.removeItem('userinfo')
+    localStorage.removeItem('userInfo')
     localStorage.removeItem('cartItems');
     dispatch({ type: USER_LOGOUT })
     dispatch({ type: CART_CLEAR_ITEMS });
