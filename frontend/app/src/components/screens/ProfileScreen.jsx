@@ -12,10 +12,10 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 function ProfileScreen() {
 
-  const [fname, setFName] = useState('');
-  const [lname, setLName] = useState('');
+  const [first_name, setFirstName] = useState('');
+  const [last_name, setLastName] = useState('');
   const [password, setPassword] = useState('');
-  const [confrimPassword, setConfrimPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState('');
   const navigate = useNavigate()
@@ -44,8 +44,8 @@ function ProfileScreen() {
         dispatch(getUserDetails('profile'))
         dispatch(listMyOrders())
       } else {
-        setFName(user.first_name)
-        setLName(user.last_name)
+        setFirstName(user.first_name)
+        setLastName(user.last_name)
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,13 +61,13 @@ function ProfileScreen() {
   const submitHandler = (e) => {
     e.preventDefault()
 
-    if (password !== confrimPassword) {
+    if (password !== confirmPassword) {
       setMessage('Password do not Match')
     } else {
       dispatch(updateUserProfile({
         'id': user.id,
-        'fname': fname,
-        'lname': lname,
+        'first_name': first_name,
+        'last_name': last_name,
         'password': password
       }))
       setMessage('')
@@ -93,23 +93,23 @@ function ProfileScreen() {
                 </Message>
               ) : (
                 <Form onSubmit={submitHandler}>
-                  <Form.Group controlId='fname'>
+                  <Form.Group controlId='first_name'>
                     <Form.Label>First Name</Form.Label>
                     <Form.Control
                       type='text'
                       placeholder='Enter First name'
-                      value={fname}
-                      onChange={(e) => setFName(e.target.value)}
+                      value={first_name}
+                      onChange={(e) => setFirstName(e.target.value)}
                     />
                   </Form.Group>
 
-                  <Form.Group controlId='lname' className='mt-3'>
+                  <Form.Group controlId='last_name' className='mt-3'>
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control
                       type='text'
                       placeholder='Enter Last name'
-                      value={lname}
-                      onChange={(e) => setLName(e.target.value)}
+                      value={last_name}
+                      onChange={(e) => setLastName(e.target.value)}
                     />
                   </Form.Group>
 
@@ -128,8 +128,8 @@ function ProfileScreen() {
                     <Form.Control
                       type='password'
                       placeholder='Confirm Password'
-                      value={confrimPassword}
-                      onChange={(e) => setConfrimPassword(e.target.value)}
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                   </Form.Group>
 

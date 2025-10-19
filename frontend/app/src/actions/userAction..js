@@ -30,7 +30,7 @@ import {
 import API from "../api/axios";
 
 
-export const signup = (fname, lname, email, password) => async (dispatch) => {
+export const signup = (first_name, last_name, email, password) => async (dispatch) => {
     try {
         dispatch({
             type: USER_SIGNUP_REQUEST
@@ -43,8 +43,8 @@ export const signup = (fname, lname, email, password) => async (dispatch) => {
         }
 
         const { data } = await API.post("/api/users/register/", {
-            fname: fname,
-            lname: lname,
+            first_name: first_name,
+            last_name: last_name,
             email: email,
             password: password,
         }, config);
