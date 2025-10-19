@@ -35,7 +35,7 @@ export default function Header() {
               <Nav.Link>Check Out</Nav.Link>
             </LinkContainer>
             {userInfo ? (
-              <NavDropdown to='/login' title={`Welcome ${userInfo.f_name}`} id="user-menu" autoClose="outside">
+              <NavDropdown to='/login' title={`Welcome ${userInfo.first_name}`} id="user-menu" autoClose="outside">
                 <NavDropdown.Item onClick={logoutHandler}>
                   Logout
                 </NavDropdown.Item>

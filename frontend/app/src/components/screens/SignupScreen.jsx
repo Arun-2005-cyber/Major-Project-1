@@ -23,20 +23,20 @@ function SignupScreen() {
   const { error, loading, userinfo } = userSignup
 
   const [FormValues, setFormValues] = useState({
-    fname: "",
-    lname: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
-    confrimpassword: "",
+    confirm_password: "",
     termsAccepted: false,
   })
 
   const [FormErrors, setFormErrors] = useState({
-    fname: null,
-    lname: null,
+    first_name: null,
+    last_name: null,
     email: null,
     password: null,
-    confrimpassword: null,
+    confirm_password: null,
     termsAccepted: null,
   })
 
@@ -91,11 +91,11 @@ function SignupScreen() {
 
   const clearForm = () => {
     setFormValues({
-      fname: "",
-      lname: "",
+      first_name: "",
+      last_name: "",
       email: "",
       password: "",
-      confrimpassword: "",
+      confirm_password: "",
       termsAccepted: false,
     })
   }
@@ -104,8 +104,8 @@ function SignupScreen() {
     let errorMessage = null
 
     switch (name) {
-      case "fname":
-      case "lname":
+      case "first_name":
+      case "last_name":
         if (!value) {
           errorMessage = "This field is required..."
         }
@@ -124,7 +124,7 @@ function SignupScreen() {
           errorMessage = "Password must be at least [0-9] [a-z] [A-Z] [_$#*!..] & 6 characters.."
         }
         break
-      case "confrimpassword":
+      case "confirm_password":
         if (value !== FormValues.password) {
           errorMessage = "Passwords do not match..."
         }
@@ -159,8 +159,8 @@ function SignupScreen() {
 
     dispatch(
       signup(
-        FormValues.fname,
-        FormValues.lname,
+        FormValues.first_name,
+        FormValues.last_name,
         FormValues.email,
         FormValues.password
       )
@@ -191,35 +191,35 @@ function SignupScreen() {
           <Form noValidate validated={false} onSubmit={submitHandler}>
             <h1 className="text-center">Signup Here</h1>
 
-            <Form.Group controlId="fname">
+            <Form.Group controlId="first_name">
               <Form.Label>First Name</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter your First Name"
-                name="fname"
-                value={FormValues.fname}
+                name="first_name"
+                value={FormValues.first_name}
                 onChange={handleChange}
-                isInvalid={!!FormErrors.fname}
-                isValid={FormValues.fname !== "" && !FormErrors.fname}
+                isInvalid={!!FormErrors.first_name}
+                isValid={FormValues.first_name !== "" && !FormErrors.first_name}
               />
               <Form.Control.Feedback type="invalid">
-                {FormErrors.fname}
+                {FormErrors.first_name}
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group controlId="lname" className="mt-3">
+            <Form.Group controlId="last_name" className="mt-3">
               <Form.Label>Last Name</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter your Last Name"
-                name="lname"
-                value={FormValues.lname}
+                name="last_name"
+                value={FormValues.last_name}
                 onChange={handleChange}
-                isInvalid={!!FormErrors.lname}
-                isValid={FormValues.lname !== "" && !FormErrors.lname}
+                isInvalid={!!FormErrors.last_name}
+                isValid={FormValues.last_name !== "" && !FormErrors.last_name}
               />
               <Form.Control.Feedback type="invalid">
-                {FormErrors.lname}
+                {FormErrors.last_name}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -271,12 +271,12 @@ function SignupScreen() {
                 <Form.Control
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm Password"
-                  name="confrimpassword"
-                  value={FormValues.confrimpassword}
+                  name="confirm_password"
+                  value={FormValues.confirm_password}
                   onChange={handleChange}
-                  isInvalid={!!FormErrors.confrimpassword}
+                  isInvalid={!!FormErrors.confirm_password}
                   isValid={
-                    FormValues.confrimpassword !== "" && !FormErrors.confrimpassword
+                    FormValues.confirm_password !== "" && !FormErrors.confirm_password
                   }
                 />
                 <Button
@@ -288,7 +288,7 @@ function SignupScreen() {
                 </Button>
               </div>
               <Form.Control.Feedback type="invalid">
-                {FormErrors.confrimpassword}
+                {FormErrors.confirm_password}
               </Form.Control.Feedback>
             </Form.Group>
 
