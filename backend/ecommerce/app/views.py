@@ -84,7 +84,7 @@ def registerUser(request):
             username=data['email'],
             email=data['email'],
             password=make_password(data['password']),
-            is_active=True
+            is_active=False
         )
 
         # Generate uid + token
