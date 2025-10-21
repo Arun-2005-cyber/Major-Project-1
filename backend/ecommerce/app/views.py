@@ -77,6 +77,12 @@ class MyTokenObtainPairView(TokenObtainPairView):
 def registerUser(request):
     data = request.data
     try:
+
+        if User.objects.filter(email=data['email']).exists():
+            return Response(
+                {"details": "Email already registered. Please log in or use a different email."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
         # Create inactive user
         user = User.objects.create(
             first_name=data['first_name'],
