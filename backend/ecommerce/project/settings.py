@@ -18,6 +18,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-dev-key")  # use env var i
 
 # In settings.py
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+from corsheaders.defaults import default_headers, default_methods
 # Set BASE_URL dynamically based on the DEBUG setting
 if DEBUG:
     BASE_URL = 'http://127.0.0.1:8000'  # Local development URL
