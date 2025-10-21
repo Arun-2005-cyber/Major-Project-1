@@ -76,33 +76,47 @@ class MyTokenObtainPairView(TokenObtainPairView):
 @api_view(['POST'])
 def registerUser(request):
     print("REGISTER API HIT")
-    data = request.data
-    print("DATA RECEIVED:", data) 
-    try:
+    data = request.data or {}
+    print("DATA RECEIVED:", data)
 
-        if User.objects.filter(email=data['email']).exists():
+    # Accept either first_name or fname from frontend
+    first_name = data.get('first_name') or data.get('fname') or ''
+    last_name = data.get('last_name') or data.get('lname') or ''
+    email = data.get('email') or data.get('Email') or data.get('e-mail') or None
+    password = data.get('password') or data.get('pass') or None
+
+    # Validate required fields
+    if not email:
+        return Response({"details": "Email is required."}, status=status.HTTP_400_BAD_REQUEST)
+    if not password:
+        return Response({"details": "Password is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        # Check duplicate email
+        if User.objects.filter(email__iexact=email).exists():
             return Response(
                 {"details": "Email already registered. Please log in or use a different email."},
                 status=status.HTTP_400_BAD_REQUEST
             )
+
         # Create inactive user
         user = User.objects.create(
-            first_name=data['first_name'],
-            last_name=data['last_name'],
-            username=data['email'],
-            email=data['email'],
-            password=make_password(data['password']),
+            first_name=first_name,
+            last_name=last_name,
+            username=email,   # you set username=email
+            email=email,
+            password=make_password(password),
             is_active=False
         )
 
-        # Generate uid + token
+        # uid + token for activation
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         token = default_token_generator.make_token(user)
 
-        # Activation link (⚡ important fix here)
-        activation_link = f"{settings.FRONTEND_URL}/activate/{uid}/{token}/"
+        # Build activation link using FRONTEND_URL from settings
+        activation_link = f"{settings.FRONTEND_URL.rstrip('/')}/activate/{uid}/{token}/"
 
-        # Send email
+        # Send activation email
         email_subject = "Activate Your Account"
         message = render_to_string("activate.html", {
             'user': user,
@@ -113,15 +127,19 @@ def registerUser(request):
             email_subject,
             message,
             settings.EMAIL_HOST_USER,
-            [data['email']]
+            [email]
         )
         email_message.content_subtype = 'html'
-        email_message.send()  
-        print("EMAIL SENT TRIGGERED") 
-        return Response({"details": f"Activation email sent to {data['email']}. Please check your inbox."})
+        email_message.send(fail_silently=False)
+
+        print("EMAIL SENT TRIGGERED")
+        return Response({"details": f"Activation email sent to {email}. Please check your inbox."})
+
     except Exception as e:
-        print("ERROR OCCURRED:", str(e)) 
-        return Response({"details": f"Signup failed: {str(e)}"})
+        # Log error on server console (print or use logger)
+        print("ERROR OCCURRED:", repr(e))
+        return Response({"details": f"Signup failed: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 
 

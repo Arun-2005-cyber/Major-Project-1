@@ -25,10 +25,11 @@ if DEBUG:
 else:
     BASE_URL = 'https://majorproject1-ecommerce-cart.onrender.com'  # Production URL
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
-
-
-
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS")
+if ALLOWED_HOSTS:
+    ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS.split(",") if h.strip()]
+else:
+    ALLOWED_HOSTS = ["majorproject1-ecommerce-cart.onrender.com"]  # production host
 
 
 
@@ -176,15 +177,11 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ALLOW_ALL_HEADERS = True
-CORS_ALLOW_METHODS = [
-    "DELETE",
-    "GET",
-    "OPTIONS",
-    "PATCH",
-    "POST",
-    "PUT",
-]
+# Use default headers + ensure content-type present
+CORS_ALLOW_HEADERS = list(default_headers)
+
+# If you need to allow specific methods (default is usually OK)
+CORS_ALLOW_METHODS = list(default_methods)
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
