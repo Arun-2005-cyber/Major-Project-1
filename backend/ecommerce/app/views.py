@@ -75,7 +75,9 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 @api_view(['POST'])
 def registerUser(request):
+    print("REGISTER API HIT")
     data = request.data
+    print("DATA RECEIVED:", data) 
     try:
 
         if User.objects.filter(email=data['email']).exists():
@@ -114,10 +116,11 @@ def registerUser(request):
             [data['email']]
         )
         email_message.content_subtype = 'html'
-        email_message.send()
-
+        email_message.send()  
+        print("EMAIL SENT TRIGGERED") 
         return Response({"details": f"Activation email sent to {data['email']}. Please check your inbox."})
     except Exception as e:
+        print("ERROR OCCURRED:", str(e)) 
         return Response({"details": f"Signup failed: {str(e)}"})
 
 
