@@ -1,3 +1,4 @@
+import email
 from django.shortcuts import render
 # from django.http import JsonResponse
 # from .products import products
@@ -24,7 +25,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from .tokens import generate_token
 from django.contrib.auth.tokens import default_token_generator 
 from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
-
+from .email_utils import send_activation_email
 
 # Create your views here.
 
@@ -131,14 +132,8 @@ def registerUser(request):
             'activation_link': activation_link
         })
 
-        email_message = EmailMessage(
-            email_subject,
-            message,
-            settings.EMAIL_HOST_USER,
-            [email]
-        )
-        email_message.content_subtype = 'html'
-        email_message.send(fail_silently=False)
+        print("📤 Sending activation email via Brevo API")
+        send_activation_email(email, email_subject, message)
 
         print("✅ EMAIL SENT SUCCESSFULLY")
         return Response({"details": f"Activation email sent to {email}. Please check your inbox."})
