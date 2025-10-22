@@ -85,21 +85,28 @@ def registerUser(request):
     email = data.get('email') or data.get('Email') or data.get('e-mail') or None
     password = data.get('password') or data.get('pass') or None
 
+    print("DEBUG EMAIL:", email)
+    print("DEBUG PASSWORD:", password)
     # Validate required fields
     if not email:
+        print("ERROR: Missing email field")
         return Response({"details": "Email is required."}, status=status.HTTP_400_BAD_REQUEST)
     if not password:
+        print("ERROR: Missing password field")
         return Response({"details": "Password is required."}, status=status.HTTP_400_BAD_REQUEST)
 
     try:
         # Check duplicate email
+        print("CHECKING FOR DUPLICATE EMAIL")
         if User.objects.filter(email__iexact=email).exists():
+            print("ERROR: Duplicate email found")
             return Response(
                 {"details": "Email already registered. Please log in or use a different email."},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
         # Create inactive user
+        print("CREATING USER...")
         user = User.objects.create(
             first_name=first_name,
             last_name=last_name,
@@ -110,12 +117,13 @@ def registerUser(request):
         )
 
         # uid + token for activation
+        print("USER CREATED SUCCESSFULLY")
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         token = default_token_generator.make_token(user)
 
         # Build activation link using FRONTEND_URL from settings
         activation_link = f"{settings.FRONTEND_URL.rstrip('/')}/activate/{uid}/{token}/"
-
+        print("ACTIVATION LINK:", activation_link)
         # Send activation email
         email_subject = "Activate Your Account"
         message = render_to_string("activate.html", {
@@ -132,12 +140,12 @@ def registerUser(request):
         email_message.content_subtype = 'html'
         email_message.send(fail_silently=False)
 
-        print("EMAIL SENT TRIGGERED")
+        print("✅ EMAIL SENT SUCCESSFULLY")
         return Response({"details": f"Activation email sent to {email}. Please check your inbox."})
 
     except Exception as e:
         # Log error on server console (print or use logger)
-        print("ERROR OCCURRED:", repr(e))
+        print("❌ ERROR OCCURRED:", repr(e))
         return Response({"details": f"Signup failed: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
