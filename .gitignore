@@ -1,14 +1,16 @@
-# Ignore environment and secrets
+# Environment files
 .env
 
-# Ignore dependencies
+# Node dependencies
 node_modules/
 frontend/app/node_modules/
 
-# Ignore build/cache files
+# Cache and build
 .cache/
-*.pack
+frontend/app/.cache/
+build/
+dist/
 
-# Ignore OS or IDE junk
+# OS / IDE junk
 .DS_Store
 *.log
