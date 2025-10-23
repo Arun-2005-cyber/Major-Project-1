@@ -129,7 +129,7 @@ def registerUser(request):
         email_subject = "Activate Your Account"
         message = render_to_string("activate.html", {
             'user': user,
-            'activation_link':activation_link
+            'activation_link': activation_link
         })
 
         print("📤 Sending activation email via Brevo API")
