@@ -1,1 +1,1 @@
-web: gunicorn backend.ecommerce.project.project.wsgi:application --preload && python backend/ecommerce/manage.py migrate && python backend/ecommerce/manage.py collectstatic --noinput && python backend/ecommerce/manage.py createsuperuser --noinput || true
+web: gunicorn project.wsgi:application --preload
