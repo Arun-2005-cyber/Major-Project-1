@@ -1,8 +1,13 @@
 # Environment files
+<<<<<<< HEAD
 # Environment files
 .env
 
 
+=======
+.env
+
+>>>>>>> 1be7ccd854b55ae81bceaab2edfacdc9f2f16e63
 # Node dependencies
 node_modules/
 frontend/app/node_modules/

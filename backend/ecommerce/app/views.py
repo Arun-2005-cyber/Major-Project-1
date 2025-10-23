@@ -122,8 +122,11 @@ def registerUser(request):
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         token = default_token_generator.make_token(user)
 
+
         # Build activation link using BACKEND_URL from settings
         activation_link = f"{settings.BACKEND_URL.rstrip('/')}/activate/{uid}/{token}/"
+
+        # Build activation link using FRONTEND_URL from setting
         print("ACTIVATION LINK:", activation_link)
         # Send activation email
         email_subject = "Activate Your Account"
