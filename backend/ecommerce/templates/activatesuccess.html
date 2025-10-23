@@ -2,15 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Activate Success</title>
+    <title>Account Activated</title>
+    <!-- ✅ Auto redirect after 3 seconds -->
+    <meta http-equiv="refresh" content="3;url=https://ecommerce-c.netlify.app/login" />
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background-color: #f9fafb;
+            text-align: center;
+            padding-top: 120px;
+        }
+        h1 {
+            color: #16a34a;
+            font-size: 28px;
+        }
+        p {
+            color: #374151;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Account is activated successfully!</h1>
-    <script>
-        window.onload=function(){
-            window.location.href='{{ FRONTEND_URL }}/login';
-        }
-    </script>
+    <h1>✅ Account Activated Successfully!</h1>
+    <p>You’ll be redirected to the login page in 3 seconds...</p>
 </body>
 </html>

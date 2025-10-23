@@ -26,6 +26,7 @@ from .tokens import generate_token
 from django.contrib.auth.tokens import default_token_generator 
 from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
 from .email_utils import send_activation_email
+from django.shortcuts import redirect
 
 # Create your views here.
 

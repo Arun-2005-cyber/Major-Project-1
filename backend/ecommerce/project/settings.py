@@ -55,14 +55,8 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': 'YE1tEexrzJahslciwjNggNoog4A'
 }
 
-import cloudinary
 
-cloudinary.config( 
-  cloud_name = "di7pfw5m1", 
-  api_key = "336555818416535", 
-  api_secret = "YE1tEexrzJahslciwjNggNoog4A",
-  secure = True   # 🔒 Force HTTPS always
-)
+
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
@@ -190,5 +184,8 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
