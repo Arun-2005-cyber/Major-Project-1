@@ -5,20 +5,25 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from cloudinary.utils import cloudinary_url
 
 class ProductSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = Product
         fields = '__all__'
 
-    def to_representation(self, instance):
-        data = super().to_representation(instance)
-        if instance.image:
-            url = str(instance.image)
-            if url.startswith("http://"):
-                url = url.replace("http://", "https://", 1)
-            data["image"] = url
-        else:
-            data["image"] = None
-        return data
+    def get_image(self, obj):
+        if not obj.image:
+            return None
+        try:
+            url = obj.image.url
+        except Exception:
+            url = str(obj.image)
+
+        # Force HTTPS (in case Cloudinary or local dev uses http)
+        if url.startswith("http://"):
+            url = url.replace("http://", "https://", 1)
+
+        return url
 
 
 
