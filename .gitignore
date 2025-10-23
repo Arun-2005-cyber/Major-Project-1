@@ -1,0 +1,16 @@
+# Environment files
+.env
+
+# Node dependencies
+node_modules/
+frontend/app/node_modules/
+
+# Cache and build
+.cache/
+frontend/app/.cache/
+build/
+dist/
+
+# OS / IDE junk
+.DS_Store
+*.log
