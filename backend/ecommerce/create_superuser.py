@@ -1,7 +1,10 @@
+print("🚀 Running create_superuser.py ...")
+
 import os
 import time
 import django
 from django.db import OperationalError
+
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 django.setup()
