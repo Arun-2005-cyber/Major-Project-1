@@ -71,7 +71,7 @@ function OrderListScreen() {
                         <i className='fa-sharp fa-regular fa-circle-xmark' style={{ color: 'red' }}></i>
                       )}</td>
 
-                      <td>{order.isDeliverd ? (
+                      <td>{order.isDelivered ? (
                         order.deliveredAt.substring(0, 10)
                       ) : (
                         <i className='fa-sharp fa-regular fa-circle-xmark' style={{ color: 'red' }}></i>
