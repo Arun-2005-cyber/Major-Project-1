@@ -1,14 +1,17 @@
 import os
 import time
+import sys
 import django
 from django.db.utils import OperationalError
 
 print("🚀 Running create_superuser.py ...")
 
 # Make sure Django can find the settings file
+sys.path.append(os.path.join(os.path.dirname(__file__), 'project'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 
 # Initialize Django
+print("🚀 Setting up Django...")
 django.setup()
 
 from django.contrib.auth import get_user_model
