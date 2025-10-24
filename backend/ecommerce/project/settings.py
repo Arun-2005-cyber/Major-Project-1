@@ -123,13 +123,12 @@ ASGI_APPLICATION = "project.asgi.application"
 
 # Database config
 # DATABASES configuration for SQLite
+
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default= 'postgresql://neondb_owner:npg_Gl6ieJv1pmok@ep-fragrant-bar-adoqkg5n-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require',
-        conn_max_age=600,
-        ssl_require=True,
-    )
+    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
 }
+
 
 
 # Password validation
