@@ -4,7 +4,8 @@ import sys
 import django
 from django.db.utils import OperationalError
 
-print("🚀 Running create_superuser.py ...")
+print("✅ create_superuser.py script started")
+
 
 # Make sure Django can find the settings file
 sys.path.append(os.path.join(os.path.dirname(__file__), 'project'))
