@@ -1,4 +1,3 @@
-
 from pathlib import Path
 from datetime import timedelta
 import os
@@ -6,6 +5,9 @@ import django
 from django.utils.encoding import force_str
 from dotenv import load_dotenv
 import cloudinary
+import dj_database_url
+
+
 
 
 # Fix for force_text removal in Django 4+
@@ -122,10 +124,11 @@ ASGI_APPLICATION = "project.asgi.application"
 # Database config
 # DATABASES configuration for SQLite
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    'default': dj_database_url.config(
+        default= 'postgresql://neondb_owner:npg_Gl6ieJv1pmok@ep-fragrant-bar-adoqkg5n-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+        conn_max_age=600,
+        ssl_require=True,
+    )
 }
 
 
@@ -185,7 +188,6 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 
