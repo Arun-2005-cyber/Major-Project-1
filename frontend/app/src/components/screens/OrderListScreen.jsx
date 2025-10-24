@@ -61,7 +61,7 @@ function OrderListScreen() {
                   {orders?.map(order => (
                     <tr key={order.id}>
                       <td>{order.id}</td>
-                      <td>{order.user && order.user.name}</td>
+                      <td>{order.user && order.user.username}</td>
                       <td>{order.createdAt?.substring(0, 10)}</td>
                       <td>Rs{order.totalPrice}</td>
 

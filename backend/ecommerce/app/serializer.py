@@ -40,10 +40,10 @@ class UserSerializer(serializers.ModelSerializer):
         fields=['id','username','email','first_name','last_name','isAdmin']
 
     def get_first_name(self,obj):
-        return obj.first_name
+        return obj.first_name if obj.first_name else obj.username
     
     def get_last_name(self,obj):
-        return obj.last_name
+        return obj.last_name if obj.last_name else obj.username
 
     def get_id(self,obj):
         return obj.id
@@ -77,6 +77,7 @@ class OrderSerializer(serializers.ModelSerializer):
     orderItems=serializers.SerializerMethodField(read_only=True)
     shippingAddress=serializers.SerializerMethodField(read_only=True)
     user=serializers.SerializerMethodField(read_only=True)
+    createdAt = serializers.DateTimeField(source='created_at', read_only=True)
     class Meta:
         model=Order
         fields='__all__'
